@@ -1,0 +1,179 @@
+//TASK1
+import java.util.*;
+public class task1{
+    public static void main(String[]args){
+        Scanner mk = new Scanner(System.in);
+        int shuru = mk.nextInt();//start point denoted as shuru
+        int sesh = mk.nextInt();// end point== sesh
+        int count =0;
+        for(int m = shuru;m<sesh;m++){
+            boolean found = false;
+            for(int j =2;j<= Math.sqrt(m);j++){
+                if(m%j==0){
+                    found =true;
+                    break;
+                }
+            }
+            if(found ==false){
+                count++;
+            }
+        }
+        System.out.println("prime numbers between " +shuru + " and "+ sesh +" is :"+ count);
+    }
+}
+
+
+//TASK2
+import java.util.Scanner;
+public class task2{
+    public static void main(String[]args){
+        Scanner sc = new Scanner (System.in);
+        String inStr = sc.nextLine();
+        int len = inStr.length();
+        for(int i =0;i< len;i++){
+            char ch = inStr.charAt(i);
+            if(ch =='a' ){
+                System.out.println("z");
+            }
+            else{
+                char nch = (char)(ch-1);
+                System.out.println(nch);
+            }
+        }
+    }
+}
+
+//TASK3
+import java.util.Arrays;
+import java.util.Scanner;
+public class task3{
+    public static void main(String []args){
+        Scanner sc = new Scanner (System.in);
+        System.out.println("Enter the length of array");
+        int len = sc.nextInt();
+        int []arr = new int [len];
+        for ( int i = 0;i<len;i++){
+            arr[i] =sc.nextInt();
+        }
+        for (int i= 0;i<Math.sqrt(len);i++){
+            int temp = arr[i];
+            arr[i] = arr[len-i-1];
+            arr[len -i-1] = temp;
+        }
+        System.out.println(Arrays.toString(arr));
+    }
+}
+
+//TASK4
+
+import java.util.Scanner;
+public class task4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number N: ");
+        int len = sc.nextInt();
+        int[] arr = new int[len];
+        System.out.println("Enter the numbers:");
+        for (int i = 0; i < len; i++) {
+            arr[i] = sc.nextInt();
+        }
+        for (int i = 0; i < len; i++) {
+            boolean counted = false;
+            for (int j = 0; j < i; j++) {
+                if (arr[i] == arr[j]) {
+                    counted = true;
+                    break;
+                }
+            }
+            if (counted ==false) {
+                int count = 1;
+                for (int k = i + 1; k < len; k++) {
+                    if (arr[i] == arr[k]) {
+                        count++;
+                    }
+                }
+                System.out.println(arr[i] + " - " + count + " times");
+            }
+        }
+    }
+}
+
+//TASK5
+import java.util.Arrays;
+import java.util.Scanner;
+public class task5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] map = { //can change with any map i want;
+            {0, 0, 10, 0, -1},
+            {0, -1, 0, 0, -1},
+            {-1, 0, -1, 0, 0},
+            {0, -1, 7, 0, -1},
+            {0, -1, 0, -1, 0}
+        };
+        int playerRow=0;
+        int playerCol=0;
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                if(map[i][j]==7){
+                    playerRow=i;
+                    playerCol=j;
+                }
+            }
+        }
+        for (int move = 0; move < 5; move++) {
+            for (int i = 0; i < map.length; i++) {
+                System.out.print(Arrays.toString(map[i]));
+                System.out.println();
+            }
+            System.out.print("Enter move (UP/DOWN/LEFT/RIGHT): ");
+            String str = sc.nextLine();
+
+            int newRow = playerRow;
+            int newCol = playerCol;
+
+            if (str.equals("RIGHT")) {
+                newCol++;
+            } else if (str.equals("LEFT")) {
+                newCol--;
+            } else if (str.equals("UP")) {
+                newRow--;
+            } else if (str.equals("DOWN")) {
+                newRow++;
+            } else {
+                System.out.println("Invalid input!");
+                continue;
+            }
+            if (newRow < 0 || newRow >= map.length || newCol < 0 || newCol >= map[0].length) {
+                System.out.println("Can't move there!");
+                --move;// i used this line for not cutting my move for this kind of invalid move;
+                continue;
+            }
+            else if(map[newRow][newCol] == -1){
+                System.out.println("You Land on mine");
+                System.out.println("Game Over!");
+                return;
+            }
+            else if (map[newRow][newCol] == 10) {
+                map[playerRow][playerCol] = 0;
+                map[newRow][newCol] = 7;
+                for (int i = 0; i < map.length; i++) {
+                    for (int j = 0; j < map[0].length; j++) {
+                        System.out.print(map[i][j] +" ");
+                    }
+                    System.out.println();
+                }
+                System.out.println("You win!");
+                return;
+            }
+            else if (map[newRow][newCol] == 0) {
+                map[playerRow][playerCol] = 0;
+                map[newRow][newCol] = 7;
+                playerRow = newRow;
+                playerCol = newCol;
+            }
+        }
+        System.out.println("Game over!");
+    }
+}
+

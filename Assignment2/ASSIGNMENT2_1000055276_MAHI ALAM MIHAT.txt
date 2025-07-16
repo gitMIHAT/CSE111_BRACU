@@ -1,0 +1,102 @@
+//task1
+
+public class CSECourse {
+    public String courseName="Programming Language II";
+    public int credit = 3;
+    public String courseCode= "CSE111";
+}
+
+
+
+
+//task2
+
+public class ImaginaryNumber {
+
+    public int realPart ;
+    public int imaginaryPart ;
+
+    String printNumber() {
+        String myResult=realPart +" + " + imaginaryPart + "i";
+        return myResult;
+    }
+}
+
+
+
+//task3
+
+public class Assignment {
+    public int tasks ;
+    public String difficulty;
+    public boolean submission ;
+    void printDetails(){
+        System.out.println("Number of task: "+ tasks);
+        System.out.println("Difficulty Level :"+difficulty);
+        System.out.println("Submission required :"+ submission);
+    } 
+    String makeOptional(){
+        String sentence;
+        if(submission){
+            sentence="Assignment will not require submission";
+            submission=false;
+        }
+        else{
+            sentence="Submission is already not required";
+            //submission=true;
+        }
+        return sentence;
+    }
+}
+
+
+
+//task4
+
+public class Employee {
+    public String name;
+    public double salary =30000;
+    public String designation ="junior";
+    void newEmployee(String employeenames){
+        name = employeenames;
+    }
+    void displayInfo(){
+        System.out.println(name);
+        System.out.println(salary);
+        System.out.println(designation);
+    }
+    void calculateTax(){
+        double tax =0;
+        if(salary >50000){
+            tax =salary * 30/100;
+            System.out.println(name + "Tax Amount : "+ tax +"Tk");
+        }
+        else if(salary <30000 ){
+            tax= salary *10/100;
+            System.out.println(name + "Tax Amount : "+ tax +"Tk");
+        }
+        else{
+            System.out.println("No need to pay tax");
+        }
+    }
+    void promoteEmployee(String promote){
+        if(promote.equals("senior")){
+            salary +=25000;
+            designation = promote;
+            System.out.println(name+"has been promoted to "+designation );
+            System.out.println("New salary :"+ salary);
+        }
+        else if(promote.equals("lead")){
+            salary +=50000;
+            designation = promote;
+            System.out.println(name +" has been promoted to "+designation);
+            System.out.println("New salary :"+ salary);
+        }
+        else if(promote.equals("manager")){
+            salary +=75000;
+            designation = promote;
+            System.out.println(name +" has been promoted to "+designation);
+            System.out.println("New salary :"+ salary);
+        }
+    }
+}

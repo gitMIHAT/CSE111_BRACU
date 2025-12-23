@@ -1,0 +1,108 @@
+//task1
+
+class Cow extends Animal{
+    
+
+    public Cow(){
+        System.out.println("The cow says hello!");
+    }
+    public String name;
+    public void updateSound(String sound){
+        super.sound = sound;
+    }
+    public String getName(){
+        return name;
+    }
+}
+
+//TASK2
+
+class CheckingAccount extends Account{
+    public static int count;
+    public CheckingAccount(){
+        super(0.0);
+        count++;
+    }
+    public CheckingAccount(double x){
+        super(x);
+        count++;
+    }
+}
+//TASK3
+public class Book extends Product {
+    public String ISBN;
+    public String pub;
+
+    public Book(int id,String name,int price,String ISBN,String pub){
+        super(id,name,price);
+        this.ISBN = ISBN;
+        this.pub=pub;
+    }
+    public String printDetail(){
+        return String.format(super.getIdTitlePrice()+"\nISBN: %s Publisher: %s", ISBN,pub);
+    }
+    
+
+    
+}
+class CD extends Product{
+    public String Brand;
+    public int duration;
+    public String genre;
+
+    public CD(int id,String name,int price,String Brand,int duration,String genre){
+        super(id,name,price);
+        this.Brand=Brand;
+        this.duration=duration;
+        this.genre= genre;
+    }
+    public String printDetail(){
+        return String.format(super.getIdTitlePrice()+"\nBand: %s Duration: %s minutes \nGenre: %s", Brand,duration,genre);
+    }
+}
+
+
+//TASK4
+
+public class ComplexNumber extends RealNumber {
+        public double Imaginary;
+    public ComplexNumber(){
+        super(1.0);
+        Imaginary=1.0;
+    }
+    public ComplexNumber(double a ,double b ){
+        super(a);
+        Imaginary=b;
+    }
+    public String details(){
+        return super.getReal() +"\nIImaginaryPart: "+Imaginary;
+
+    }
+
+}
+
+
+
+//TASK5
+
+public class CSEStudent extends Student{
+    public static int total_student =0;
+    public static String [] Courses= {"CSE110", "CSE111", "CSE220","CSE221"};
+    public CSEStudent(String name,int id){
+        super(name,id);
+        total_student++;
+    }
+
+    public static void details(){
+        System.out.println("Total CSE Students: "+total_student+"\nAvailable Lab Based Courses:");
+        for(int i=0;i<Courses.length;i++){
+            System.out.print(Courses[i]+" ");
+        }
+        System.out.println();
+    }
+
+
+    public void addLabBasedCourse(String course){
+        courses+= course+ " ";
+    }
+}

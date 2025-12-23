@@ -1,0 +1,308 @@
+//task=====1==============
+
+public class Company {
+    public String compName= "ABC Company";
+    public int totalEmployee;
+    public Employee [] employees = new Employee[3];
+    public int index;
+    public void addEmployee(Employee obj){
+        if(index < employees.length){
+            employees[index++] = obj;
+            System.out.println(obj.name +" has joined the company");
+            totalEmployee ++;
+        }else{
+            System.out.println("No more vacancy");
+        }
+    }
+public void removeEmployee(Employee obj) {
+    for (int i = 0; i < index; i++) {
+        if (employees[i].name.equals(obj.name)) {
+            for (int j = i; j < index - 1; j++) {
+                employees[j] = employees[j + 1];
+            }
+            employees[index - 1] = null;//this line is for error handling does not required for the output of assginment added to solve problem
+            index--;
+            totalEmployee--;
+            System.out.println(obj.name + " has left the company");
+            break;
+        }
+    }
+}
+
+
+    public void details(){
+        System.out.println("Company Name: "+ compName +"\nTotal Employee: "+totalEmployee );
+        System.out.println("Fulltime Employees:");
+        if (employees[0]==null){
+            
+        }else{
+            for(int i=0;i<index;i++){
+                if(employees[i].employedStatus=="Fulltime"){
+                    System.out.println("Name: "+employees[i].name+" Id: "+employees[i].Id);
+                }
+            }
+        }
+        System.out.println("Part-Time Employees:");
+        if (employees[0]==null){
+            
+        }else{
+            for(int i=0;i<index;i++){
+                if(employees[i].employedStatus=="Part-time"){
+                    System.out.println("Name: "+employees[i].name+" Id: "+employees[i].Id);
+                }
+            }
+        }        
+}
+}
+
+
+public class Employee {
+    public String name ;
+    public int Id;
+    public String employedStatus;
+
+
+
+    public Employee(){
+        System.out.println("A default employee has been created");
+    }
+    public Employee (String name , int id , String employedStatus){
+        this.name =name;
+        this.Id = id;
+        this.employedStatus = employedStatus;
+    }
+
+}
+
+
+//==========================ends here==========
+
+
+
+
+//=====================starts=========
+// task
+
+public class Department {
+    public String sub;
+    public int count;
+    public Student[] students = new Student[5];
+    public Department(String sub){
+        this.sub = sub;
+    }
+    public void findStudent(int a){
+        if (a <= 0) {
+            System.out.println("Student with this ID doesn't exist, Please give a valid ID");
+            return;
+        }
+        for (int i = 0; i < count; i++) {
+            if (students[i].id == a) {
+                System.out.println("Student info:");
+                System.out.println("Student Name: " + students[i].name);
+                System.out.println("ID: " + students[i].id);
+                System.out.println("CGPA:  " + students[i].cgpa);
+                return;
+            }
+        }
+        System.out.println("Student with this ID doesn't exist, Please give a valid ID");
+    }
+    public void details(){
+        System.out.println("Department Name: " + sub);
+        System.out.println("Number of student:" + count);
+        System.out.println("Details of the students: ");
+
+        for (int i = 0; i < count; i++) {
+            System.out.println("Student name: " + students[i].name + ", ID: " + students[i].id + ", cgpa: " + students[i].cgpa);
+        }
+    }
+    public void addStudent(Student obj){
+
+        if (count == 5) {  
+            System.out.println("Cannot add more students, department is full!");  
+            return;    
+        }
+        for (int i = 0; i < count; i++) {
+            if (students[i].id == obj.id) {
+                System.out.println("Student with the same ID already exists, Please try with another ID");
+                return;
+            }
+        }
+        students[count] = obj;
+        count++;
+        System.out.println("Welcome to " + sub + " department, " + obj.name);
+    }
+    public void addStudent(Student obj ,Student obj1 ,Student obj2){
+        addStudent(obj);
+        addStudent(obj1);
+        addStudent(obj2);
+    }
+}
+public class Student {
+    public String name;
+    public int id;
+    public double cgpa;
+
+    public Student(String name,int id , double cg){
+        this.name = name;
+        this.id = id;
+        this.cgpa = cg;
+    }
+
+    public void updateId(int id){
+        this.id = id;
+    }
+    
+}
+
+//============================ends here
+
+//task3
+
+public class UberEatsUser {
+    public String usrname;
+    public String location ="Unknown";
+    public Boolean updated =false;
+    public UberEatsUser(String name ,String Location){
+        this.usrname =name;
+        this.location =Location;
+    }
+    public UberEatsUser(String name){
+        this.usrname= name;
+    }
+
+    public void updateLocation(String Location){
+        if(updated ==false){
+            updated = true;
+            location =Location;
+            System.out.println("Update Successful!");
+        }else{
+            System.out.println("We already have your location.\nPlease place an order!");
+        }
+    }
+}
+class Restaurant {
+    public String resName;
+    public String resLocation;
+    public UberEatsUser [] orders = new UberEatsUser[3];
+    public int index;
+    public Boolean ordered= false;
+    public Restaurant(String name ,String Location){
+        resName = name;
+        resLocation = Location;
+    }
+
+    public void takeOrder(UberEatsUser obj){
+        for(int i=0;i<index;i++){
+            if(orders[i]==obj){
+                ordered =true;
+                System.out.println("You already have a pending order!");
+                break;
+            }
+        }
+        if(ordered ==false){
+            if(orders.length>index){
+                if(obj.location =="Unknown"){
+                    System.out.println("Location : "+obj.location+". Please update your location information!");
+                }else{
+                    System.out.println("Your order has been added!");
+                    orders[index++]= obj;
+                }
+            }else{
+                System.out.println("We are really busy right now.\nPlease order after sine time.\nThank you!");
+            }
+        }
+    }
+    public void completeOrders(){
+        if(orders[0] ==null ){
+            System.out.println("No pending orders at the moment.");
+        }else{
+            System.out.println("Showing "+resName+"'s orders:");
+            for (int i=0;i<index;i++){
+                System.out.println("Order by "+orders[i].usrname +" at "+orders[i].location +" completed");
+            }
+            orders = new UberEatsUser[3];
+        }
+    }
+}
+
+//===================ends--here============ 
+
+
+
+//======================starts--here============
+//task4
+public class ConnectFriends {
+    public String name;
+    public int maxFrd=2;
+    public int TotalFriendRequest;
+    public int index;
+    public ConnectFriends [] sendfrdReq;
+    public Boolean found;
+    public ConnectFriends(String name){
+        this.name = name;
+        System.out.println("Welcome to ConnectFriends, "+this.name);
+        sendfrdReq = new ConnectFriends[maxFrd];
+    }
+    public ConnectFriends(String name ,int maxFrd){
+        this(name);
+        this.maxFrd = maxFrd;
+        sendfrdReq = new ConnectFriends[maxFrd];
+    }
+
+    public void sendFriendRequest(ConnectFriends obj){
+        if(this.maxFrd >TotalFriendRequest){
+            TotalFriendRequest++;
+            sendfrdReq[index]=obj;
+            index++;
+            System.out.println(name +" send a friend request to "+obj.name+".");
+        }else{
+            System.out.println(name+" has reached the friend request limit!");
+
+        }
+
+    }
+    public void sendFriendRequest(ConnectFriends obj ,ConnectFriends obj2){
+        sendFriendRequest(obj);
+        sendFriendRequest(obj2);
+    }
+
+    public void showDetails(){
+        System.out.println("User Name: "+ this.name);
+        System.out.println("Maximum number of friend sent Friend Request: "+maxFrd);
+        System.out.println("Total Friend Request: "+ TotalFriendRequest);
+        System.out.print("Sent Friend Request: ");
+        if(sendfrdReq[0]!=null){
+            for(int i=0;i<index;i++){
+                System.out.print(sendfrdReq[i].name +" ");
+            }
+            System.out.println();
+        }else{
+            System.out.println();
+        }
+    }
+    public void removeRequest(String name) {
+        found = false;  
+        for (int i = 0; i < index; i++) {
+            if (sendfrdReq[i].name.equals(name)) {  
+                sendfrdReq[i] = null;
+                found = true;
+                for (int j = i; j < index - 1; j++) {
+                    sendfrdReq[j] = sendfrdReq[j + 1];
+                }
+                sendfrdReq[index - 1] = null;
+                index--;
+                TotalFriendRequest--;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println(name + " is not in " + this.name + "'s send Request list.");
+        } else {
+            System.out.println("Request to add " + name + " is removed for " + this.name);
+        }
+    }
+
+}
+
+//==============ends here ===============!!
+

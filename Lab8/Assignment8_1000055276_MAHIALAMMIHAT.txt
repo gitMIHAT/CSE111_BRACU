@@ -1,0 +1,344 @@
+//TASK1
+class Butterfly extends Caterpillar{
+  String Transformed= "Butterfly";
+  public Butterfly(String food ,int age){
+    super(food,age);
+  }
+  @Override
+  public void eat(int amount){
+    energy+= (amount*5);
+    energy-=5;
+    System.out.println("Butterfly lost energy while flying and absorbed nectar");
+  }
+  @Override
+    public void showDetails() {
+    System.out.println("Food: " + food);
+    System.out.println("Age: " + age);
+    System.out.println("Energy: " + energy +" jules");
+    }
+  @Override
+  public void transform(){
+    System.out.println("Caterpillar transforms into "+ Transformed);
+  }
+}
+  class Moth extends Caterpillar{
+    String Transformed="Moth";
+  public Moth(String food ,int age){
+    super(food,age);
+  }
+@Override
+    public void transform(){
+    System.out.println("Caterpillar transforms into "+ Transformed);
+    }
+  @Override
+  public void eat(int amount){
+    energy+= (amount*2.5);
+    energy-=2.5;
+    System.out.println("Moth lost energy due to nocturnal activity");
+  }
+  @Override
+    public void showDetails() {
+    System.out.println("Food: " + food);
+    System.out.println("Age: " + age);
+    System.out.println("Energy: " + energy +" jules");
+    }
+}
+
+
+//TASK2
+class Concert {
+  String Venue;
+  String Time;
+  int ticketSold;         
+  String[] artists = new String[5];
+  int artistCur = 0; 
+  static int totalTicketsSold = 0;
+  public Concert(String Venue, String time) {
+    this.Venue = Venue;
+    this.Time = time;
+    this.ticketSold = 0;
+  }
+    public void showDetails() {
+        System.out.println("Venue: " + Venue);
+        System.out.println("Showtime: " + Time);
+        System.out.println("Artist: ");
+        for (int i = 0; i < artistCur; i++) {
+            System.out.println("-" + artists[i]);
+        }
+        System.out.println("Tickets sold in this concert: " + ticketSold);
+    }
+    public void addArtist(String name) {
+      if  (artistCur < artists.length) {
+        artists [artistCur++] = name;
+      }
+  }
+    public void buyTicket(String zone, int quantity) {
+        int price = 0;
+        if (zone.equals("A")){
+            price = 500 * quantity;
+        } 
+        else if (zone.equals("B")){
+            price = 1000 * quantity;
+        } 
+
+        ticketSold += quantity;
+        totalTicketsSold += quantity;
+        System.out.println("Total price: " + price);
+    }
+
+  public void buyTicket() {
+        ticketSold += 1;
+        totalTicketsSold += 1;
+        System.out.println("Total price: 2000");
+  }
+   public void buyTicket(String zone) {
+        buyTicket(zone, 1);
+    }
+  public static void showTotalTicketsSold() {
+        System.out.println("Total tickets sold (all venues): " + totalTicketsSold);
+  }
+}
+class VIPConcert extends Concert {
+    public VIPConcert(String Venue, String time) {
+        super(Venue, time);
+    }
+}
+
+
+//TASK3
+class CarDriver extends GenericDriver{
+  public String profile="Premium";
+  public static int index;
+  public static String []restrictedAreas =new String [2];
+  public CarDriver(String name){
+    super(name);
+  }
+
+  public static void restrictedAreas(String area){
+    restrictedAreas[index++]=area;
+  }
+  public void fightRestriction(String [] areas){
+    for(int i = 0; i < areas.length; i++){
+        boolean res = false;
+        for(int j = 0; j < restrictedAreas.length; j++){
+            if(areas[i].equals(restrictedAreas[j])){
+            res = true;
+            break;
+        }
+    }
+    if(res){
+      System.out.println(getName() + " cannot enter " + areas[i]);
+    } else {
+      System.out.println(getName() + " can enter " + areas[i]);
+    }
+    }
+  }
+  @Override
+  public void hasSafetyTraining() {
+    super.hasSafetyTraining();
+    if(profile.equals("Premium")){
+      System.out.println("Premium drivers receive extra safety briefings.");
+    }
+  }
+  public String toString(){
+    if(profile.equals("Not Premium")){
+    return getName()+"'s driver profile is Not Premium";
+    }
+    return getName()+"'s driver profile is a Premium";
+  }
+  @Override
+  public String acceptRide(boolean hasVehicle) {
+    String s="";
+    s=super.acceptRide(hasVehicle);
+    if(profile.equals("Premium")){
+      s+="\n"+getName()+"'s driver profile is Premium";
+    }else{
+      s+="\n"+getName()+"'s driver profile is Not Premium";
+    }
+    return s;
+  }
+}
+
+class BikeDriver extends GenericDriver{
+  public String profile;
+  public static String [] restrictedAreas= new String[3];
+  public static int index;
+  public BikeDriver(String name,String profile){
+    super(name);
+    this.profile=profile;
+  }
+
+  public void fightRestriction(String [] areas){
+    for(int i = 0; i < areas.length; i++){
+    boolean restricted = false;
+    for(int j = 0; j < restrictedAreas.length; j++){
+      if(areas[i].equals(restrictedAreas[j])){
+        restricted = true;
+        break;
+      }
+    }
+    if(restricted){
+      System.out.println(getName() + " cannot enter " + areas[i]);
+    } else {
+      System.out.println(getName() + " can enter " + areas[i]);
+    }
+    }
+  }
+
+  public static void restrictedAreas(String area){
+    restrictedAreas[index++]=area;
+  }
+  @Override
+  public void hasSafetyTraining() {
+    super.hasSafetyTraining();
+    if(profile.equals("Premium")){
+      System.out.println("Premium drivers receive extra safety briefings.");
+    }
+  }
+  @Override
+  public String toString(){
+    if(profile.equals("Not Premium")){
+      return getName()+"'s driver profile is Not Premium";
+    }
+    return getName()+"'s driver profile: is a Premium";
+  }
+  @Override
+  public String acceptRide(boolean hasVehicle) {
+    String s="";
+    s=super.acceptRide(hasVehicle);
+    if(profile.equals("Premium")){
+      s+="\n"+getName()+"'s driver profile is Premium";
+    }else{
+      s+="\n"+getName()+"'s driver profile is Not Premium";
+    }
+    return s;
+  }
+}
+
+//TASK4
+class ElectricCar extends Vehicle{
+    public int betterCap;
+    public String type;
+    public ElectricCar(String model,int price,int betteryCap){
+        super(model,price);
+        this.betterCap=betteryCap;
+        vehicleId="EV000";
+        type="Electric Vehicle";
+        System.out.printf("Vehicle ID: %s created\n",vehicleId);
+    }
+    @Override
+     public void vehicleDetail() {
+        super.vehicleDetail();
+        System.out.println("Type: "+type+"\nBettery Capacity: "+betterCap+" kWh");
+     }    
+    //static method
+    public static void markAsSoldEV(ElectricCar obj){
+        obj.sold = true;
+    } 
+}
+class Car extends Vehicle{
+    public int seats;
+    public String type;
+    public static int totalCar=0;
+    public static int index;
+    public String status="available";
+    public static Car [] cars = new Car[1000];
+    //static 
+    public Car(String model,int price ,int seats){
+        super(model,price);
+        vehicleId= "Car00"+(totalCar+1);
+        Car.cars[totalCar] =this; 
+        this.seats = seats;
+        totalCar++;
+        type ="Regular Car";
+        vehicleId = "Car00"+totalCar;
+        System.out.printf("Vehicle ID: %s created\n",vehicleId);
+    }
+    @Override
+     public void vehicleDetail() {
+        super.vehicleDetail();
+        System.out.println("Type: "+type+"\nSeats: "+seats);
+     }
+
+     //staticM
+     public static void showAllAvailableCars(){
+        System.out.println("Total Car: "+totalCar+"\nAvailable Cars:");
+        for(int i=0;i<totalCar;i++){
+            System.out.println( cars[i].vehicleId+" : "+cars[i].model);
+        }
+     }
+     public static void markAsSold(Car obj){
+        obj.sold = true;
+     }
+     public String soldStatus(){
+        if(sold ==true){
+            status="sold";
+        }
+        return status;
+     }
+     public static void showAllCars(){
+        System.out.println("Total Car: "+totalCar);
+        for(int i=0;i<totalCar;i++){
+            System.out.println(cars[i].vehicleId+" : "+cars[i].model +" - "+cars[i].soldStatus());
+        }
+
+     }
+}
+
+//TASK5
+
+class Developer extends Employee {
+    private String language;
+    public Developer(String name, double baseSalary, int hoursWorked, String language) {
+        super(name, baseSalary, hoursWorked);
+        this.language = language;
+    }
+    public void calculateSalary() {
+        double finalSalary = getBaseSalary();
+        if (language.equalsIgnoreCase("Java") && getHoursWorked() >= 50) {
+            finalSalary += 700;
+        }
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Language: " + language);
+        double finalSalary = getBaseSalary();
+        if (language.equalsIgnoreCase("Java") && getHoursWorked() >= 50) {
+            finalSalary += 700;
+        }
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+}
+
+class Manager extends Employee {
+    private double bonusPercentage;
+    public Manager(String name, double baseSalary, int hoursWorked, double bonusPercentage) {
+        super(name, baseSalary, hoursWorked);
+        this.bonusPercentage = bonusPercentage;
+    }
+    public void calculateSalary() {
+        double finalSalary = getBaseSalary() + (getBaseSalary() * bonusPercentage / 100);
+        System.out.println("Bonus: " + bonusPercentage + " %");
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+    @Override
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Base Salary: $" + getBaseSalary());
+        System.out.println("Work Hours: " + getHoursWorked());
+        System.out.println("Bonus: " + bonusPercentage + " %");
+        double finalSalary = getBaseSalary() + (getBaseSalary() * bonusPercentage / 100);
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+    public void requestIncrement(double increment) {
+        if (getHoursWorked() < 80) {
+            System.out.println("Increment denied.");
+        } else {
+            setBaseSalary(getBaseSalary() + increment);
+            System.out.println("$" + (int) increment + " Increment approved.");
+        }
+    }
+}
+
